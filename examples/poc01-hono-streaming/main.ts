@@ -1,7 +1,60 @@
-import { Hono, Context } from 'jsr:@hono/hono@4.7.9';
-import { stream } from 'jsr:@hono/hono/streaming';
+import { Hono, Context } from '@hono/hono';
+import { stream } from '@hono/hono/streaming';
+import { serveStatic } from "@hono/hono/deno"
 
 const app = new Hono(); // Removed custom AppEnv, letting Hono infer types
+
+// Handler for PoC 2.1's main.ts (component definitions)
+app.get('/examples/poc02-basic-component-definition/main.ts', async (c) => {
+	try {
+		// Path relative to where `deno run` is executed (assumed project root)
+		const filePath = "./examples/poc02-basic-component-definition/main.ts";
+		const file = await Deno.open(filePath, { read: true });
+		const readable = file.readable;
+		c.header('Content-Type', 'application/javascript; charset=utf-8');
+		console.log(`Serving ${filePath} with Content-Type: application/javascript`);
+		return c.body(readable);
+	} catch (e) {
+		console.error(`Error serving ${c.req.path}: ${e.message}`);
+		return c.notFound();
+	}
+});
+
+// Handler for PoC 2.1's index.html
+app.get('/examples/poc02-basic-component-definition/', async (c) => {
+	try {
+		const filePath = "./examples/poc02-basic-component-definition/index.html";
+		const file = await Deno.open(filePath, { read: true });
+		const readable = file.readable;
+		c.header('Content-Type', 'text/html; charset=utf-8');
+		console.log(`Serving ${filePath} with Content-Type: text/html`);
+		return c.body(readable);
+	} catch (e) {
+		console.error(`Error serving ${c.req.path}: ${e.message}`);
+		return c.notFound();
+	}
+});
+app.get('/examples/poc02-basic-component-definition/index.html', async (c) => {
+	try {
+		const filePath = "./examples/poc02-basic-component-definition/index.html";
+		const file = await Deno.open(filePath, { read: true });
+		const readable = file.readable;
+		c.header('Content-Type', 'text/html; charset=utf-8');
+		console.log(`Serving ${filePath} with Content-Type: text/html`);
+		return c.body(readable);
+	} catch (e) {
+		console.error(`Error serving ${c.req.path}: ${e.message}`);
+		return c.notFound();
+	}
+});
+
+
+// --- General Serve Static Files for other PoCs in /examples ---
+// This will now only handle requests under /examples/* that were NOT caught by the specific handlers above.
+app.use('/examples/*', serveStatic({
+	root: './', // Relative to where Deno is run (project root)
+	// This middleware will attempt to determine MIME types for other files.
+}));
 
 // --- PoC 1.1: Basic Hono App Setup ---
 // Using basic Context type, allowing Hono to infer more.
