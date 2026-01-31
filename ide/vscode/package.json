@@ -2,27 +2,37 @@
   "name": "csx-support",
   "displayName": "CSX Language Support",
   "description": "Syntax highlighting for C# + JSX (CSX)",
-  "version": "0.0.1",
+  "publisher": "FierstDev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fierstdev/csx"
+  },
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "extensionKind": [
+    "workspace",
+    "ui"
+  ],
+  "extensionDependencies": [
+    "ms-dotnettools.csharp"
+  ],
   "contributes": {
     "languages": [
       {
-        "id": "csx",
-        "aliases": ["CSX", "csx"],
-        "extensions": [".csx"],
-        "configuration": "./language-configuration.json"
+        "id": "csharp",
+        "extensions": [".csx"]
       }
     ],
     "grammars": [
       {
-        "language": "csx",
-        "scopeName": "source.csx",
-        "path": "./syntaxes/csx.tmLanguage.json"
+        "scopeName": "csx.injection",
+        "path": "./syntaxes/csx.tmLanguage.json",
+        "injectTo": ["source.cs"]
       }
     ]
   }

@@ -1,8 +1,8 @@
-# CSX Framework
+# Duality Framework
 
 **The "TSX for C#" WebAssembly Framework.**
 
-CSX is a zero-overhead, fine-grained reactive framework for building web applications using C# and WebAssembly. It combines the developer experience of JSX (CSX) with the performance of .NET 9 NativeAOT and WasmGC.
+Duality is a zero-overhead, fine-grained reactive framework for building web applications using C# and WebAssembly. It combines the developer experience of JSX (Duality) with the performance of .NET 9 NativeAOT and WasmGC.
 
 ## Key Features
 
@@ -15,11 +15,11 @@ CSX is a zero-overhead, fine-grained reactive framework for building web applica
 
 ## Project Structure
 
-- **CSX.Generator**: The Roslyn Source Generator (Compiler).
-- **CSX.Runtime**: The core library (Signals, Hooks, DOM Interop).
-- **CSX.Wasm**: The WebAssembly application host.
-- **CSX.CLI**: Command-line tool for managing projects.
-- **CSX.Playground**: Console verification tool.
+- **Duality.Generator**: The Roslyn Source Generator (Compiler).
+- **Duality.Runtime**: The core library (Signals, Hooks, DOM Interop).
+- **Duality.Wasm**: The WebAssembly application host.
+- **Duality.CLI**: Command-line tool for managing projects.
+- **Duality.Playground**: Console verification tool.
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ CSX is a zero-overhead, fine-grained reactive framework for building web applica
 
 1. **Navigate to the Wasm project**:
    ```bash
-   cd CSX.Wasm
+   cd Duality.Wasm
    ```
 
 2. **Build and Run**:

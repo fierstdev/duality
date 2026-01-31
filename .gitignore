@@ -1,0 +1,25 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet
+*.nupkg
+
+# IDEs
+.vscode/
+.idea/
+*.sln.DotSettings.user
+*.suo
+*.user
+
+# CSX Framework specifics
+nupkg/
+publish_out/
+DebugCounter/
+DebugCurrent/
+CSX.Playground/obj/
+CSX.Playground/bin/
+
+# OS
+.DS_Store
+Thumbs.db

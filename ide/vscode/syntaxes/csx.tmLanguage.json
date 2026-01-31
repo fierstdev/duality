@@ -1,42 +1,98 @@
 {
-  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "CSX",
-  "scopeName": "source.csx",
+  "name": "CSX Injection",
+  "scopeName": "csx.injection",
+  "injectionSelector": "L:source.cs -string -comment",
   "patterns": [
     {
-      "include": "source.cs"
+      "include": "#component-definition"
     },
     {
-      "comment": "JSX Tag injection - Simplified",
-      "begin": "(<)([a-zA-Z0-9]+)",
-      "beginCaptures": {
-        "1": { "name": "punctuation.definition.tag.begin.csx" },
-        "2": { "name": "entity.name.tag.csx" }
-      },
-      "end": "(>)",
-      "endCaptures": {
-        "1": { "name": "punctuation.definition.tag.end.csx" }
-      },
-      "patterns": [
-        {
-          "match": "([a-zA-Z-]+)=",
-          "captures": {
-            "1": { "name": "entity.other.attribute-name.csx" }
-          }
-        },
-        {
-            "include": "#expression"
-        }
-      ]
+      "include": "#jsx-root"
     }
   ],
   "repository": {
-      "expression": {
-          "begin": "\\{",
-          "end": "\\}",
-          "patterns": [
-              { "include": "source.cs" }
-          ]
-      }
+    "component-definition": {
+        "match": "\\b(component)\\s+([a-zA-Z0-9_]+)",
+        "captures": {
+            "1": { "name": "keyword.declaration.component.csx" },
+            "2": { "name": "entity.name.type.component.csx" }
+        }
+    },
+    "jsx-root": {
+      "patterns": [
+        { "include": "#jsx-tag-self-closing" },
+        { "include": "#jsx-tag-start" },
+        { "include": "#jsx-tag-close" }
+      ]
+    },
+    "jsx-tag-start": {
+      "begin": "(<)([_a-zA-Z][a-zA-Z0-9_\\.-]*)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.tag.begin" },
+        "2": { "name": "entity.name.class" }
+      },
+      "end": "(>)",
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.tag.end" }
+      },
+      "name": "meta.tag.csx",
+      "patterns": [
+        { "include": "#jsx-attributes" }
+      ]
+    },
+    "jsx-tag-self-closing": {
+      "begin": "(<)([_a-zA-Z][a-zA-Z0-9_\\.-]*)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.tag.begin" },
+        "2": { "name": "entity.name.class" }
+      },
+      "end": "(/>)",
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.tag.end" }
+      },
+      "name": "meta.tag.self-closing.csx",
+      "patterns": [
+        { "include": "#jsx-attributes" }
+      ]
+    },
+    "jsx-tag-close": {
+      "begin": "(</)([_a-zA-Z][a-zA-Z0-9_\\.-]*)",
+      "beginCaptures": {
+         "1": { "name": "punctuation.definition.tag.begin" },
+         "2": { "name": "entity.name.class" }
+      },
+      "end": "(>)",
+      "endCaptures": {
+         "1": { "name": "punctuation.definition.tag.end" }
+      },
+      "name": "meta.tag.close.csx"
+    },
+    "jsx-attributes": {
+        "patterns": [
+            {
+                "match": "\\b([a-zA-Z0-9_:-]+)(=)",
+                "captures": {
+                    "1": { "name": "entity.other.attribute-name" },
+                    "2": { "name": "punctuation.separator.key-value" }
+                }
+            },
+            {
+                "begin": "\"",
+                "end": "\"",
+                "name": "string.quoted.double",
+                "patterns": []
+            },
+            {
+                "begin": "\\{",
+                "beginCaptures": { "0": { "name": "punctuation.section.embedded.begin.csx" } },
+                "end": "\\}",
+                "endCaptures": { "0": { "name": "punctuation.section.embedded.end.csx" } },
+                "name": "meta.embedded.expression.csx",
+                "patterns": [
+                     { "include": "source.cs" }
+                ]
+            }
+        ]
+    }
   }
 }

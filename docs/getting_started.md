@@ -165,4 +165,5 @@ Navigate to `http://localhost:5000/about` to see it.
 You're now building with CSX!
 
 ## Next Steps
+- Read [Server Actions (RPC)](rpc.md) to add interactivity to your app.
 - Read [Deployment Guide](deployment.md) to learn how to host your app.

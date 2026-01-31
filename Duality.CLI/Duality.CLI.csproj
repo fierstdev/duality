@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dlty</ToolCommandName>
+    <PackageId>Duality.CLI</PackageId>
+    <Version>1.1.3</Version>
+    <Authors>FierstDev</Authors>
+    <Company>FierstDev</Company>
+    <Description>Command-line interface for creating and managing Duality projects.</Description>
+    <RepositoryUrl>https://github.com/fierst-llc/csx-framework</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\templates\default\**" Pack="true" PackagePath="tools/net8.0/any/templates/default" CopyToOutputDirectory="Never" Exclude="..\templates\default\bin\**;..\templates\default\obj\**" />
+  </ItemGroup>
+
+</Project>

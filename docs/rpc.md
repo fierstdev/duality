@@ -1,46 +1,65 @@
 # CSX Server Actions (RPC)
 
-CSX enables type-safe Remote Procedure Calls (RPC) between Client components and Server logic using the `[Server]` attribute.
+CSX provides a seamless way to trigger server-side logic from the client without writing API endpoints manually. This is powered by **HTMX** and compiler transpilation.
 
 ## Concept
-Instead of manually creating API endpoints and fetch requests, you define static C# methods inside your component annotated with `[Server]`.
-The compiler generates:
-1. **Server-Side:** An API endpoint at `/_rpc/{Component}/{Method}`.
-2. **Client-Side:** A generated proxy method that calls this endpoint securely using `HttpClient`.
+
+Instead of creating a separate API controller, you define `static` methods inside your component annotated with `[Server]`. 
+The compiler automatically:
+1.  **Generates an Endpoint**: Creates a route at `/_rpc/{Component}/{Method}`.
+2.  **Binds the UI**: Transpiles your `onClick` handlers into HTMX attributes (`hx-post`) that call this endpoint.
 
 ## Usage
 
+### 1. Define the Action
+Mark a static method with `[Server]`. This method runs entirely on the server.
+
 ```csharp
 component Counter {
+    static int Count = 0;
+
     [Server]
-    public static void LogCount(int count) {
-        // This runs ON THE SERVER
-        System.Console.WriteLine($"Count is now: {count}");
+    public static void Increment() {
+        Count++;
     }
 
-    // Client-side code calls it like a normal function
-    return <button onclick={() => LogCount(5)}>Log It</button>;
+    return (
+        <div>
+            Count: {Count}
+            <button onClick={Increment}>Increment</button>
+        </div>
+    );
 }
 ```
 
-## Architecture
+### 2. How it Compiles
+The CSX compiler transforms the `onClick` handler into declarative HTMX attributes:
 
-### Compilation Split
-* **Server Build:** The method body is compiled as-is.
-* **Client Build:** The method body is **removed** and replaced with a proxy call:
-  ```csharp
-  public static async void LogCount(int count) {
-      await RpcClient.CallAsync("Counter", "LogCount", count);
-  }
-  ```
+**Input (Your Code):**
+```csharp
+<button onClick={Increment}>Increment</button>
+```
 
-### Type Safety
-Since the exact same C# file is used for both Server and Client compilation, arguments and return types are checked at compile time. You cannot invoke a Server Action with incorrect parameters.
+**Output (Generated HTML):**
+```html
+<button hx-post="/_rpc/Counter/Increment" hx-target="closest div" hx-swap="outerHTML">
+    Increment
+</button>
+```
 
-### Serialization
-Arguments are serialized to JSON using `System.Text.Json`.
+When clicked:
+1.  HTMX sends a POST request to `/_rpc/Counter/Increment`.
+2.  The server executes `Increment()`.
+3.  The server **re-renders** the component with the new state (`Count` is now 1).
+4.  The server returns the updated HTML.
+5.  HTMX swaps the old component HTML with the new one.
 
-## Best Practices
-* **Security:** Always validate inputs in your `[Server]` methods. Do not trust the client.
-* **Async:** Server actions should ideally be `async Task` if they perform I/O.
-* **Static:** Currently, Server Actions must be `static` as they don't have access to Client Component state (only passed arguments).
+## State Management
+
+Since these actions run on the server, they do not have access to the browser's memory. State must be persisted somewhere accessible to the server:
+
+*   **Static Fields**: Shared global state (simplest for demos/single-tenant apps).
+*   **Database**: Persistent data.
+*   **Session**: Per-user state (Future feature).
+
+*Note: The `[Server]` attribute currently works best with `static` methods and state.*

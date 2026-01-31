@@ -1,18 +1,19 @@
 namespace Features.Reactivity;
 
 component Counter {
-    var (count, setCount) = UseState(0);
+    static int Count = 0;
 
-    void Increment() {
-        setCount(count.Value + 1);
+    [Server]
+    public static void Increment() {
+        Count++;
     }
 
     return 
     <div class={Css.Counter}>
         <div class={Css.Value}>
-            Count: {count}
+            Count: {Count}
         </div>
-        <button class={Css.Button} onclick={Increment}>
+        <button class={Css.Button} onClick={Increment}>
             Increment
         </button>
     </div>;
