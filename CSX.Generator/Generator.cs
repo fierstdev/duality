@@ -124,7 +124,7 @@ namespace CSX.Generator
                                      serverActions.Add(new MethodInfo(method.Identifier.Text, method.ReturnType.ToString(), pList));
                                      if (target == EmitMode.Server) sbMembers.AppendLine(method.ToFullString());
                                  }
-                                 else sbMembers.AppendLine(node.ToFullString());
+                                 else sbRender.AppendLine(node.ToFullString()); // Treat as local function in Render
                              }
                              else if (node is FieldDeclarationSyntax field)
                              {

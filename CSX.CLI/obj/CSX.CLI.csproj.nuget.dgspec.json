@@ -5,7 +5,7 @@
   },
   "projects": {
     "/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/CSX.CLI.csproj": {
-      "version": "1.0.2",
+      "version": "1.0.5",
       "restore": {
         "projectUniqueName": "/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/CSX.CLI.csproj",
         "projectName": "CSX.CLI",

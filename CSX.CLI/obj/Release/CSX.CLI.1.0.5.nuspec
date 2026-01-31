@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>CSX.CLI</id>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
     <authors>CSX.CLI</authors>
     <description>Package Description</description>
     <packageTypes>
       <packageType name="DotnetTool" />
     </packageTypes>
-    <repository type="git" commit="8b90c67190e456c28fc0a28203d10eebcb1e009e" />
+    <repository type="git" commit="7259515e161534a724e697903b1a3e47e2686837" />
   </metadata>
   <files>
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/obj/DotnetToolSettings.xml" target="tools/net8.0/any/DotnetToolSettings.xml" />

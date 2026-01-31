@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSX.Runtime" Version="1.0.2" />
-    <PackageReference Include="CSX.Generator" Version="1.0.2" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="CSX.Runtime" Version="1.0.5" />
+    <PackageReference Include="CSX.Generator" Version="1.0.5" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

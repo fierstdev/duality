@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>CSX.Generator</id>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
     <authors>CSX.Generator</authors>
     <description>Package Description</description>
-    <repository type="git" commit="317b75fde9f7a208112459348d7fcdd24aaa1128" />
+    <repository type="git" commit="7259515e161534a724e697903b1a3e47e2686837" />
   </metadata>
   <files>
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Generator/bin/Release/netstandard2.0/CSX.Generator.dll" target="analyzers/dotnet/cs/CSX.Generator.dll" />

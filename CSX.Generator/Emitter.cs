@@ -19,6 +19,7 @@ namespace CSX.Generator
         {
             var sb = new StringBuilder();
             sb.AppendLine("#nullable enable");
+            sb.AppendLine("#pragma warning disable CS8321, CS0168");
             sb.AppendLine("using CSX.Runtime;");
             sb.AppendLine("using static CSX.Runtime.Hooks;");
             if (_mode == EmitMode.Server) sb.AppendLine("using System.Text;");
