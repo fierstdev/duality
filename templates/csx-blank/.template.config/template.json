@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "CSX Framework",
+  "classifications": ["Web", "CSX"],
+  "name": "CSX Blank App",
+  "identity": "CSX.Templates.Blank",
+  "shortName": "csx-blank",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CSXApp",
+  "preferNameDirectory": true
+}

@@ -1,0 +1,29 @@
+{
+  "name": "csx-support",
+  "displayName": "CSX Language Support",
+  "description": "Syntax highlighting for C# + JSX (CSX)",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "csx",
+        "aliases": ["CSX", "csx"],
+        "extensions": [".csx"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "csx",
+        "scopeName": "source.csx",
+        "path": "./syntaxes/csx.tmLanguage.json"
+      }
+    ]
+  }
+}

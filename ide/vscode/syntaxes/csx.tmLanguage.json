@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CSX",
+  "scopeName": "source.csx",
+  "patterns": [
+    {
+      "include": "source.cs"
+    },
+    {
+      "comment": "JSX Tag injection - Simplified",
+      "begin": "(<)([a-zA-Z0-9]+)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.tag.begin.csx" },
+        "2": { "name": "entity.name.tag.csx" }
+      },
+      "end": "(>)",
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.tag.end.csx" }
+      },
+      "patterns": [
+        {
+          "match": "([a-zA-Z-]+)=",
+          "captures": {
+            "1": { "name": "entity.other.attribute-name.csx" }
+          }
+        },
+        {
+            "include": "#expression"
+        }
+      ]
+    }
+  ],
+  "repository": {
+      "expression": {
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+              { "include": "source.cs" }
+          ]
+      }
+  }
+}
