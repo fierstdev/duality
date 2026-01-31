@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSX.Runtime\CSX.Runtime.csproj" />
-    <ProjectReference Include="..\CSX.Generator\CSX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Duality.Core\Duality.Core.csproj" />
+    <ProjectReference Include="..\Duality.Compiler\Duality.Compiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

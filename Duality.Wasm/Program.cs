@@ -1,4 +1,4 @@
-﻿using CSX.Runtime;
+﻿using Duality.Core;
 using System.Runtime.InteropServices.JavaScript;
 
 // Keep the Render method alive for the JS bootloader

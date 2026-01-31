@@ -1,4 +1,4 @@
-﻿using CSX.Runtime;
+﻿using Duality.Core;
 using System;
 
 Console.WriteLine("CSX Framework Playground");

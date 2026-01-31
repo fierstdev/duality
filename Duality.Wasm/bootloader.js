@@ -24,5 +24,5 @@
         }
     });
 
-    console.log("CSX Bootloader Initialized");
+    console.log("Duality Bootloader Initialized");
 })();
