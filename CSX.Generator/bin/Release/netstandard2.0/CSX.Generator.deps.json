@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "CSX.Generator/1.0.0": {
+      "CSX.Generator/1.0.2": {
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": "3.3.4",
           "Microsoft.CodeAnalysis.CSharp": "4.8.0",
@@ -221,7 +221,7 @@
     }
   },
   "libraries": {
-    "CSX.Generator/1.0.0": {
+    "CSX.Generator/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -8,13 +8,11 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>csx</ToolCommandName>
     <PackageId>CSX.CLI</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="..\templates\default\**" Pack="true" PackagePath="tools/net8.0/any/templates/default" CopyToOutputDirectory="Never" Exclude="..\templates\default\bin\**;..\templates\default\obj\**" />
-    <Content Include="..\templates\minimal\**" Pack="true" PackagePath="tools/net8.0/any/templates/minimal" CopyToOutputDirectory="Never" Exclude="..\templates\minimal\bin\**;..\templates\minimal\obj\**" />
-    <Content Include="..\templates\example\**" Pack="true" PackagePath="tools/net8.0/any/templates/example" CopyToOutputDirectory="Never" Exclude="..\templates\example\bin\**;..\templates\example\obj\**" />
   </ItemGroup>
 
 </Project>

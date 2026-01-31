@@ -9,15 +9,18 @@ component Index {
         </div>
 
         <div class="grid">
-            <Card Title="Structured">
+            <Card>
+                <h3>Structured</h3>
                 <p>Edit <code>Pages/Index.csx</code> to see changes instantly using Hot Reload.</p>
             </Card>
             
-            <Card Title="Components">
+            <Card>
+                <h3>Components</h3>
                 <p>Run <code>csx g component Name</code> to generate modular, reusable UI parts with scoped CSS.</p>
             </Card>
 
-            <Card Title="Type Safe">
+            <Card>
+                <h3>Type Safe</h3>
                 <p>Catch errors at build time. No more `undefined is not a function`.</p>
             </Card>
         </div>

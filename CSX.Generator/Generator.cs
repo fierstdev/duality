@@ -59,8 +59,8 @@ namespace CSX.Generator
                         var cssContent = cssFile.GetText(spc.CancellationToken)?.ToString();
                         if (!string.IsNullOrEmpty(cssContent))
                         {
-                             // Simple Regex to find class names: .ClassName
-                             var classMatches = System.Text.RegularExpressions.Regex.Matches(cssContent, @"\.([a-zA-Z0-9_-]+)");
+                             // SCSS/CSS Regex: dot followed by letter/underscore, then alphanumeric
+                             var classMatches = System.Text.RegularExpressions.Regex.Matches(cssContent, @"\.([a-zA-Z_][a-zA-Z0-9_-]*)");
                              var uniqueHash = System.Guid.NewGuid().ToString("N").Substring(0, 6);
                              
                              var sbCssClass = new StringBuilder();
@@ -68,6 +68,7 @@ namespace CSX.Generator
                              sbCssClass.AppendLine("    {");
                              
                              var processedCss = cssContent;
+                             var addedProps = new System.Collections.Generic.HashSet<string>();
                              
                              foreach (System.Text.RegularExpressions.Match match in classMatches)
                              {
@@ -76,7 +77,12 @@ namespace CSX.Generator
                                  
                                  // Property: public static string ClassName => "scopedName";
                                  var propName = ToPascalCase(className);
-                                 sbCssClass.AppendLine($"        public static string {propName} => \"{scopedName}\";");
+                                 
+                                 if (!addedProps.Contains(propName))
+                                 {
+                                     sbCssClass.AppendLine($"        public static string {propName} => \"{scopedName}\";");
+                                     addedProps.Add(propName);
+                                 }
                                  
                                  // Replace in content
                                  processedCss = System.Text.RegularExpressions.Regex.Replace(processedCss, @"\." + className + @"\b", "." + scopedName);

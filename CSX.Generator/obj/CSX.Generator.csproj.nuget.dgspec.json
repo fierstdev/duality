@@ -5,7 +5,7 @@
   },
   "projects": {
     "/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Generator/CSX.Generator.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.2",
       "restore": {
         "projectUniqueName": "/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Generator/CSX.Generator.csproj",
         "projectName": "CSX.Generator",
@@ -20,6 +20,7 @@
           "netstandard2.0"
         ],
         "sources": {
+          "/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/nupkg": {},
           "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },

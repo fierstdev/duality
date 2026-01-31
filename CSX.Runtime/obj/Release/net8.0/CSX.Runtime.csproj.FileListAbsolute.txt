@@ -5,6 +5,7 @@
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.AssemblyInfoInputs.cache
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.AssemblyInfo.cs
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.csproj.CoreCompileInputs.cache
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.sourcelink.json
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.dll
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/refint/CSX.Runtime.dll
 /Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/obj/Release/net8.0/CSX.Runtime.pdb

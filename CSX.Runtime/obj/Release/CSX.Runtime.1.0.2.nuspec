@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>CSX.Runtime</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <authors>CSX.Runtime</authors>
     <description>Package Description</description>
-    <repository type="git" commit="49055f4841d2df2c936e08c2fe8f829b689d6b63" />
+    <repository type="git" commit="317b75fde9f7a208112459348d7fcdd24aaa1128" />
     <dependencies>
       <group targetFramework="net8.0" />
     </dependencies>

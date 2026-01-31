@@ -156,6 +156,18 @@ namespace CSX.Generator
                     sb.AppendLine("        childContent?.Invoke(sb);");
                     return;
                 }
+
+                // Component Call (Uppercase)
+                if (el.TagName != null && char.IsUpper(el.TagName[0]))
+                {
+                    sb.AppendLine($"        {el.TagName}_Impl.Render(sb, null, (sb) => {{");
+                    foreach (var child in el.Children)
+                    {
+                        EmitServerNode(sb, child, component);
+                    }
+                    sb.AppendLine("        });");
+                    return;
+                }
                 
                 sb.AppendLine($"        sb.Append(\"<{el.TagName}\");");
                 
