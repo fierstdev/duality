@@ -8,7 +8,7 @@
     <Version>1.1.3</Version>
     <PackageId>Duality.Compiler</PackageId>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <Authors>FierstDev</Authors>
     <Company>FierstDev</Company>
