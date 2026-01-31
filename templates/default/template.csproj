@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duality.Core" Version="1.1.4-alpha" />
-    <PackageReference Include="Duality.Compiler" Version="1.1.4-alpha" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Duality.Core" Version="1.1.5-alpha" />
+    <PackageReference Include="Duality.Compiler" Version="1.1.5-alpha" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

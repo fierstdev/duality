@@ -2,7 +2,7 @@
 set -e
 
 # Version to release
-VERSION="1.1.4-alpha"
+VERSION="1.1.5-alpha"
 
 # Colors
 GREEN='\033[0;32m'
