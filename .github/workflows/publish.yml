@@ -21,14 +21,32 @@ jobs:
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Build & Pack Core
-        run: dotnet pack Duality.Core/Duality.Core.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
+      - name: Restore Dependencies
+        run:
+          dotnet restore Duality.Core/Duality.Core.csproj # Restore specifically the core project first if needed, or the whole solution if you have one.
 
+
+          # 1. BUILD FIRST (This creates the DLL)
+      - name: Build Core
+        run:
+          dotnet build Duality.Core/Duality.Core.csproj -c Release --no-restore
+
+          # 2. PACK SECOND (This wraps the DLL)
+          # The --no-build flag is CRITICAL here to prevent it from trying to build again
+      - name: Pack Core
+        run:
+          dotnet pack Duality.Core/Duality.Core.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
+
+          # (Repeat the pattern for Compiler and CLI if needed)
       - name: Build & Pack Compiler
-        run: dotnet pack Duality.Compiler/Duality.Compiler.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
+        run: |
+          dotnet build Duality.Compiler/Duality.Compiler.csproj -c Release
+          dotnet pack Duality.Compiler/Duality.Compiler.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
 
       - name: Build & Pack CLI
-        run: dotnet pack Duality.CLI/Duality.CLI.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
+        run: |
+          dotnet build Duality.CLI/Duality.CLI.csproj -c Release
+          dotnet pack Duality.CLI/Duality.CLI.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
 
       - name: Push to NuGet
         run: dotnet nuget push nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
