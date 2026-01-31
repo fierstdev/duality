@@ -62,3 +62,27 @@ docker run -p 8080:8080 csx-app
 
 ### Static Hosting?
 CSX currently relies on server-side rendering (SSR), so it requires a .NET server. It cannot be deployed to static hosts like Vercel (unless using their Serverless Function support for .NET) or Netlify Drop.
+
+## 3. Managing NuGet Versions
+
+When publishing packages to [nuget.org](https://www.nuget.org), you might have old or broken versions (e.g., `1.0.5`) that you don't want users to install.
+
+### Unlisting Packages
+You cannot "delete" a package from NuGet (to prevent breaking builds), but you can **Unlist** it so it doesn't appear in search results or as the "Latest Version".
+
+1. Go to [nuget.org/account/Packages](https://www.nuget.org/account/Packages).
+2. Click the **Manage** (pencil icon) next to the package (e.g., `Duality.CLI`).
+3. Select **Listing** in the sidebar.
+4. Uncheck **List in search results**.
+5. Click **Save**.
+
+*Repeat this for `Duality.Core` and `Duality.Compiler` if needed.*
+
+### Stable vs Prerelease
+- **Stable** (e.g., `1.0.0`): The default installation target.
+- **Prerelease** (e.g., `1.1.4-alpha`): Requires the `--prerelease` flag to install.
+
+To ensure users get your latest alpha/beta work:
+```bash
+dotnet tool install -g Duality.CLI --prerelease
+```
