@@ -1,4 +1,5 @@
 using Shared.UI;
+using Features.Reactivity;
 
 component Index {
     return 
@@ -24,5 +25,7 @@ component Index {
                 <p>Catch errors at build time. No more `undefined is not a function`.</p>
             </Card>
         </div>
+        
+        <Counter />
     </div>;
 }

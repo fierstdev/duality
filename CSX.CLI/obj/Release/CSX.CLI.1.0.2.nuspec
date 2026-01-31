@@ -8,7 +8,7 @@
     <packageTypes>
       <packageType name="DotnetTool" />
     </packageTypes>
-    <repository type="git" commit="317b75fde9f7a208112459348d7fcdd24aaa1128" />
+    <repository type="git" commit="8b90c67190e456c28fc0a28203d10eebcb1e009e" />
   </metadata>
   <files>
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/obj/DotnetToolSettings.xml" target="tools/net8.0/any/DotnetToolSettings.xml" />
@@ -17,6 +17,8 @@
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.runtimeconfig.json" target="tools/net8.0/any/CSX.CLI.runtimeconfig.json" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.pdb" target="tools/net8.0/any/CSX.CLI.pdb" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/.template.config/template.json" target="tools/net8.0/any/templates/default/.template.config/template.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Features/Reactivity/Counter.css" target="tools/net8.0/any/templates/default/Features/Reactivity/Counter.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Features/Reactivity/Counter.csx" target="tools/net8.0/any/templates/default/Features/Reactivity/Counter.csx" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Features/README.md" target="tools/net8.0/any/templates/default/Features/README.md" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/Index.csx" target="tools/net8.0/any/templates/default/Pages/Index.csx" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/README.md" target="tools/net8.0/any/templates/default/Pages/README.md" />
