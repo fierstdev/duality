@@ -8,7 +8,7 @@
     <packageTypes>
       <packageType name="DotnetTool" />
     </packageTypes>
-    <repository type="git" commit="49055f4841d2df2c936e08c2fe8f829b689d6b63" />
+    <repository type="git" commit="d8ef4e758d9d48402da2255efa55523ea0c12237" />
   </metadata>
   <files>
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/obj/DotnetToolSettings.xml" target="tools/net8.0/any/DotnetToolSettings.xml" />
@@ -22,27 +22,15 @@
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/README.md" target="tools/net8.0/any/templates/default/Pages/README.md" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/_layout.csx" target="tools/net8.0/any/templates/default/Pages/_layout.csx" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Program.cs" target="tools/net8.0/any/templates/default/Program.cs" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Shared/UI/Card.css" target="tools/net8.0/any/templates/default/Shared/UI/Card.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Shared/UI/Card.csx" target="tools/net8.0/any/templates/default/Shared/UI/Card.csx" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Shared/UI/README.md" target="tools/net8.0/any/templates/default/Shared/UI/README.md" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/template.csproj" target="tools/net8.0/any/templates/default/template.csproj" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/Footer.css" target="tools/net8.0/any/templates/default/Widgets/Footer.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/Footer.csx" target="tools/net8.0/any/templates/default/Widgets/Footer.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/Navbar.css" target="tools/net8.0/any/templates/default/Widgets/Navbar.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/Navbar.csx" target="tools/net8.0/any/templates/default/Widgets/Navbar.csx" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/README.md" target="tools/net8.0/any/templates/default/Widgets/README.md" />
     <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/wwwroot/css/site.css" target="tools/net8.0/any/templates/default/wwwroot/css/site.css" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/.template.config/template.json" target="tools/net8.0/any/templates/minimal/.template.config/template.json" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Pages/Index.csx" target="tools/net8.0/any/templates/minimal/Pages/Index.csx" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Pages/_layout.csx" target="tools/net8.0/any/templates/minimal/Pages/_layout.csx" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Program.cs" target="tools/net8.0/any/templates/minimal/Program.cs" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/template.csproj" target="tools/net8.0/any/templates/minimal/template.csproj" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/wwwroot/css/site.css" target="tools/net8.0/any/templates/minimal/wwwroot/css/site.css" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/.template.config/template.json" target="tools/net8.0/any/templates/example/.template.config/template.json" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/README.md" target="tools/net8.0/any/templates/example/Features/README.md" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/Todo/TodoList.css" target="tools/net8.0/any/templates/example/Features/Todo/TodoList.css" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/Todo/TodoList.csx" target="tools/net8.0/any/templates/example/Features/Todo/TodoList.csx" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/Index.csx" target="tools/net8.0/any/templates/example/Pages/Index.csx" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/README.md" target="tools/net8.0/any/templates/example/Pages/README.md" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/_layout.csx" target="tools/net8.0/any/templates/example/Pages/_layout.csx" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Program.cs" target="tools/net8.0/any/templates/example/Program.cs" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Shared/UI/README.md" target="tools/net8.0/any/templates/example/Shared/UI/README.md" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/template.csproj" target="tools/net8.0/any/templates/example/template.csproj" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Widgets/README.md" target="tools/net8.0/any/templates/example/Widgets/README.md" />
-    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/wwwroot/css/site.css" target="tools/net8.0/any/templates/example/wwwroot/css/site.css" />
   </files>
 </package>

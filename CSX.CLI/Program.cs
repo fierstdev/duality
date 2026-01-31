@@ -30,19 +30,9 @@ namespace CSX.CLI
                             projName = Console.ReadLine();
                         }
                         
-                        if (args.Length >= 3) template = args[2];
-                        else if (!string.IsNullOrWhiteSpace(projName))
+                        if (args.Length >= 3)
                         {
-                             Console.WriteLine("Select a template:");
-                             Console.WriteLine("1. Default (FSD Structure)");
-                             Console.WriteLine("2. Minimal (Empty Project)");
-                             Console.WriteLine("3. Example (ToDo List App)");
-                             Console.Write("Choice [1]: ");
-                             var choice = Console.ReadLine()?.Trim();
-                             
-                             if (choice == "2" || choice == "minimal") template = "minimal";
-                             else if (choice == "3" || choice == "example") template = "example";
-                             else template = "default";
+                            // Ignore template arg or warn, for now just use default
                         }
 
                         if (!string.IsNullOrWhiteSpace(projName)) CreateNewProject(projName, template);

@@ -1,3 +1,5 @@
+using Widgets;
+
 component Layout {
     return <html>
         <head>
@@ -8,25 +10,13 @@ component Layout {
             <link rel="stylesheet" href="/css/site.css" />
         </head>
         <body>
-            <nav>
-                <div class="container">
-                    <a href="/" class="brand">CSX App</a>
-                    <div class="links">
-                        <a href="https://github.com/fierst-llc/csx" target="_blank">Documentation</a>
-                        <a href="https://github.com" target="_blank">GitHub</a>
-                    </div>
-                </div>
-            </nav>
+            <Navbar />
 
             <main class="container">
                 <Slot />
             </main>
 
-            <footer>
-                <div class="container">
-                    Built with <strong>CSX</strong>. Fast, simple, reliable.
-                </div>
-            </footer>
+            <Footer />
         </body>
     </html>;
 }

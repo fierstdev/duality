@@ -31,42 +31,6 @@ body {
   padding: 0 1.5rem;
 }
 
-nav {
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(9, 9, 11, 0.8);
-}
-
-nav .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.brand {
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: -0.025em;
-  color: var(--foreground);
-  text-decoration: none;
-}
-
-.links a {
-  color: #a1a1aa;
-  text-decoration: none;
-  font-size: 0.9rem;
-  margin-left: 1.5rem;
-  transition: color 0.2s;
-}
-
-.links a:hover {
-  color: var(--foreground);
-}
-
 main {
   padding: 4rem 0;
 }
@@ -86,6 +50,7 @@ h1, h2, h3 {
 .title-gradient {
   background: linear-gradient(to right, #60a5fa, #a855f7);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 3.5rem;
   font-weight: 800;
@@ -106,30 +71,6 @@ p.subtitle {
   gap: 1.5rem;
 }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.card:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-}
-
-.card h3 {
-  margin-top: 0;
-  font-size: 1.25rem;
-}
-
-.card p {
-  color: #a1a1aa;
-  margin-bottom: 0;
-  font-size: 0.95rem;
-}
-
 code {
   font-family: monospace;
   background: #27272a;
@@ -137,13 +78,4 @@ code {
   border-radius: 0.25rem;
   font-size: 0.9em;
   color: #e4e4e7;
-}
-
-footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  margin-top: 4rem;
-  text-align: center;
-  color: #52525b;
-  font-size: 0.875rem;
 }

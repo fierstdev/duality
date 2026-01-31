@@ -1,3 +1,5 @@
+using Shared.UI;
+
 component Index {
     return 
     <div>
@@ -7,20 +9,17 @@ component Index {
         </div>
 
         <div class="grid">
-            <div class="card">
-                <h3>Structured</h3>
+            <Card Title="Structured">
                 <p>Edit <code>Pages/Index.csx</code> to see changes instantly using Hot Reload.</p>
-            </div>
+            </Card>
             
-            <div class="card">
-                <h3>Components</h3>
+            <Card Title="Components">
                 <p>Run <code>csx g component Name</code> to generate modular, reusable UI parts with scoped CSS.</p>
-            </div>
+            </Card>
 
-            <div class="card">
-                <h3>Type Safe</h3>
+            <Card Title="Type Safe">
                 <p>Catch errors at build time. No more `undefined is not a function`.</p>
-            </div>
+            </Card>
         </div>
     </div>;
 }

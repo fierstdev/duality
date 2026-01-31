@@ -35,15 +35,12 @@ Run the creation command:
 csx new BeanCafe
 ```
 
-You will be asked to select a template. For a real project, choose **Default**:
-```text
-Select a template:
-1. Default (FSD Structure)  <-- Choose this
-2. Minimal (Empty Project)
-3. Example (ToDo List App)
-```
+This creates a folder `BeanCafe` with a professional **Feature-Sliced Design (FSD)** structure:
 
-This creates a folder `BeanCafe` with a professional, organized structure.
+- `Pages/`: Your routes (`index.csx`).
+- `Widgets/`: Major UI blocks like `Navbar`, `Footer`.
+- `Shared/`: Reusable primitives like `Button`, `Card`.
+- `Features/`: Business logic components (e.g., `TodoList`).
 
 ## 4. Run the Development Server
 Navigate to your folder and start the app:
@@ -115,24 +112,24 @@ Now, let's add the Navbar to every page by editing the **Layout**.
 Open `Pages/_layout.csx`. This file wraps all your pages.
 
 ```csharp
-// Import your widget
 using BeanCafe.Widgets;
 
 component Layout {
-    // 'ChildContent' is the page being rendered
-    RenderFragment ChildContent; 
-
     return 
     <html>
         <head>
             <title>Bean Cafe</title>
             <link rel="stylesheet" href="/app.css" />
+            <link rel="stylesheet" href="/css/site.css" />
         </head>
         <body>
-            <Navbar />  {/* <-- Add your component here */}
+            <Navbar />
+            
             <main>
-                {ChildContent}
+                <Slot /> {/* Page content goes here */}
             </main>
+
+            <Footer />
         </body>
     </html>;
 }
@@ -168,5 +165,4 @@ Navigate to `http://localhost:5000/about` to see it.
 You're now building with CSX!
 
 ## Next Steps
-- Explore the **Example Project** (`csx new MyProject example`) to see a full features demo.
 - Read [Deployment Guide](deployment.md) to learn how to host your app.
