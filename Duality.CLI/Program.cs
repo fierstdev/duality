@@ -127,7 +127,7 @@ namespace Duality.CLI
             Console.WriteLine($"Creating '{name}' using '{template}' template...");
             CopyDirectory(source, destination, name);
             Console.WriteLine("Done.");
-            Console.WriteLine($"\ncd {name}\ncsx dev");
+            Console.WriteLine($"\ncd {name}\ndlty dev");
         }
 
         static string? FindTemplatesDir(string startPath)
