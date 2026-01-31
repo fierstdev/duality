@@ -2,62 +2,117 @@
 
 **The "TSX for C#" WebAssembly Framework.**
 
-Duality is a zero-overhead, fine-grained reactive framework for building web applications using C# and WebAssembly. It combines the developer experience of JSX (Duality) with the performance of .NET 9 NativeAOT and WasmGC.
+Duality is a zero-overhead, reactive framework for building web applications using C# and WebAssembly. It combines the developer experience of JSX (using the `.csx` format) with the performance of .NET 9 and server-side interactivity powered by HTMX.
 
-## Key Features
+## 🚀 Quick Start
 
-- **.csx File Format**: Write C# components with HTML-like syntax.
-- **Zero-Virtual DOM**: Compiles directly to imperative `NativeDom` calls.
-- **Fine-Grained Reactivity**: Signals (`Signal<T>`) drive granular updates.
-- **Instant Resumability**: Static extraction of event handlers enables "Lazy Interaction".
-- **Zero-Cost Abstractions**: Components vanish at compile time; only the render logic remains.
-- **NativeAOT + WasmGC**: Targets the smallest possible Wasm footprint.
+Build your first Duality app in seconds using the `dlty` CLI.
 
-## Project Structure
+### 1. Prerequisites
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- `wasm-tools` workload:
+  ```bash
+  dotnet workload install wasm-tools
+  ```
 
-- **Duality.Generator**: The Roslyn Source Generator (Compiler).
-- **Duality.Runtime**: The core library (Signals, Hooks, DOM Interop).
-- **Duality.Wasm**: The WebAssembly application host.
-- **Duality.CLI**: Command-line tool for managing projects.
-- **Duality.Playground**: Console verification tool.
+### 2. Create and Run
+```bash
+# Create a new project
+dlty new MyDualityApp
 
-## Getting Started
+# Start the development server
+cd MyDualityApp
+dlty dev
+```
+*Your app will be available at `http://localhost:5000` with hot-reloading enabled.*
 
-### Prerequisites
+---
 
-- .NET 9.0 SDK
-- `wasm-tools` workload (`dotnet workload install wasm-tools`)
+## ✨ Core Features
 
-### Running the Example
-
-1. **Navigate to the Wasm project**:
-   ```bash
-   cd Duality.Wasm
-   ```
-
-2. **Build and Run**:
-   ```bash
-   dotnet publish -c Release
-   # The output in /bin/Release/net9.0/browser-wasm/publish/wwwroot can be served.
-   ```
-
-   *Note: Ensure you include the generated `bootloader.js` in your HTML index.*
-
-## Architecture
-
-CSX uses a **Compile-Time** approach. The `.csx` files are parsed by a Source Generator, which emits optimized C# code.
+### 📡 Server Actions & Static State
+Duality uses a server-driven reactivity model. State is managed via `static` fields, and interactivity is defined through `[Server]` actions that the compiler automatically wires up with HTMX.
 
 ```csharp
-// Source (.csx)
-return <div onclick={ setCount(count.Value + 1) }>{count}</div>;
+component Counter {
+    static int Count = 0;
 
-// Generated Output (Simplfied)
-var el = NativeDom.CreateElement("div");
-Reactivity.Bind(count, v => NativeDom.SetText(el, v)); // Dynamic text
-// Static Handler (no closures!)
-public static void Handler_123(object state) { ... }
+    [Server]
+    public static void Increment() {
+        Count++;
+    }
+
+    return (
+        <div class="card">
+            <p>Count is: {Count}</p>
+            <button onclick={Increment}>
+                Increment
+            </button>
+        </div>
+    );
+}
 ```
 
-## Contributing
+### 🎨 CSS Modules integration
+Components in Duality automatically support scoped CSS via `.css` files matched to your `.csx` files.
 
-See `docs/` for detailed architecture notes.::contentReference[oaicite:0]{index=0}::
+```css
+/* Counter.css */
+.container {
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f4f4f4;
+}
+```
+
+```csharp
+// Counter.csx
+component Counter {
+    return <div class={Css.Container}>Styled Content</div>;
+}
+```
+
+### 🛠️ The `dlty` CLI
+Manage your project structure with ease using the built-in generator.
+
+- **Generate Components**: `dlty g component MyHeader` (defaults to `Shared/UI`)
+- **Generate Pages**: `dlty g page Home`
+- **Scoped Generation**: `dlty g component Profile --layer features` (places in `Features/Profile`)
+
+---
+
+## 🏗️ Project Structure
+
+- **[Duality.Compiler](Duality.Compiler)**: The source generator transforming `.csx` to optimized C# or HTML.
+- **[Duality.Core](Duality.Core)**: The runtime engine (Interop, HandlerRegistry).
+- **[Duality.CLI](Duality.CLI)**: Developer productivity tool (`dlty`).
+- **[CSX.Wasm](CSX.Wasm)**: The WASM host and bootloader.
+
+---
+
+## 🔬 Architecture: Server-Side Reactivity
+
+Duality achieves instant startup and minimal client-side weight by leveraging **Server Actions** and **HTMX**.
+
+### How it Compiles
+The compiler transforms your C# methods and JSX event handlers into declarative attributes that describe network interactions.
+
+**Source (`Counter.csx`):**
+```csharp
+<button onclick={Increment}>Increment</button>
+```
+
+**Emitted HTML (Generated):**
+```html
+<button hx-post="/_rpc/Counter/Increment" hx-target="closest div" hx-swap="outerHTML">
+    Increment
+</button>
+```
+
+When clicked, HTMX sends a POST request to the autogenerated RPC endpoint. The server executes the `static void Increment()` method, re-renders the component with the new `Count` value, and returns the updated HTML fragment for an instant, seamless swap.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see the [docs/](docs/) directory for deep-dives into [Server Actions (RPC)](docs/rpc.md) and the compiler internals.
