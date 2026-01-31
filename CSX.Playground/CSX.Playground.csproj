@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="**/*.csx" />
     <AdditionalFiles Include="**/*.csx" />
+    <AdditionalFiles Include="**/*.css" />
   </ItemGroup>
 
 </Project>

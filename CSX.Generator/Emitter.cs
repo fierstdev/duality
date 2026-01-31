@@ -2,63 +2,136 @@ using System.Text;
 
 namespace CSX.Generator
 {
+    public enum EmitMode { Client, Server }
+
     public class Emitter
     {
         private List<(string Id, string Body, string ClosureName, List<string> Captures)> _hoistedHandlers = new List<(string, string, string, List<string>)>();
+        private readonly EmitMode _mode;
+        private int _handlerCounter = 0;
 
-        public string Emit(ComponentNode component)
+        public Emitter(EmitMode mode = EmitMode.Client)
+        {
+            _mode = mode;
+        }
+
+        public string Emit(ComponentNode component, List<MethodInfo>? serverActions = null, string? membersCode = null, string? renderCode = null)
         {
             var sb = new StringBuilder();
+            sb.AppendLine("#nullable enable");
             sb.AppendLine("using CSX.Runtime;");
             sb.AppendLine("using static CSX.Runtime.Hooks;");
+            if (_mode == EmitMode.Server) sb.AppendLine("using System.Text;");
             sb.AppendLine();
             sb.AppendLine($"// Generated CSX Component: {component.Name}");
             sb.AppendLine($"public static partial class {component.Name}_Impl");
             sb.AppendLine("{");
-            sb.AppendLine($"    public static void Render(RenderContext ctx)");
+
+            // Inject Members (Methods, Properties)
+            if (!string.IsNullOrEmpty(membersCode))
+            {
+                sb.AppendLine("    // Class Members");
+                sb.AppendLine(membersCode);
+            }
+            
+            // Emit Proxies (Client Mode Only)
+            if (_mode == EmitMode.Client && serverActions != null)
+            {
+                foreach(var action in serverActions)
+                {
+                    sb.AppendLine($"    // Proxy for {action.Name}");
+                    var paramDecl = string.Join(", ", action.Parameters.Select(p => $"{p.Type} {p.Name}"));
+                    var argList = string.Join(", ", action.Parameters.Select(p => p.Name));
+                    
+                    // Determine return type (void -> async void, Task -> async Task)
+                    var retType = action.ReturnType;
+                    if (retType == "void") retType = "async void";
+                    else if (retType == "Task") retType = "async Task";
+                    // else... maintain original but unlikely to work without async wrapping
+                    
+                    sb.AppendLine($"    public static {retType} {action.Name}({paramDecl})");
+                    sb.AppendLine("    {");
+                    sb.AppendLine($"        await CSX.Runtime.RpcClient.CallAsync(\"{component.Name}\", \"{action.Name}\", {argList});");
+                    sb.AppendLine("    }");
+                }
+            }
+
+            // Server Signature
+            if (_mode == EmitMode.Server)
+            {
+                sb.AppendLine($"    public static void Render(StringBuilder sb, System.Collections.Generic.Dictionary<string, object>? routeParams = null, System.Action<StringBuilder>? childContent = null)");
+            }
+            else
+            {
+                sb.AppendLine($"    public static void Render(RenderContext ctx)");
+            }
             sb.AppendLine("    {");
             
-            // Inject User Code
-            if (!string.IsNullOrEmpty(component.BodyRaw))
+            // Unified access to RouteParams
+            if (_mode == EmitMode.Server)
             {
-                sb.AppendLine("        // User Code");
-                sb.AppendLine(component.BodyRaw);
+                sb.AppendLine("        var RouteParams = routeParams ?? new System.Collections.Generic.Dictionary<string, object>();");
+            }
+            else
+            {
+                sb.AppendLine("        var RouteParams = ctx.RouteParams;");
+            }
+            
+            // Inject Render Logic (Statements, Returns)
+            if (!string.IsNullOrEmpty(renderCode))
+            {
+                sb.AppendLine("        // Render Logic");
+                sb.AppendLine(renderCode);
+            }
+            // Fallback to BodyRaw if split failed? (Only if membersCode/renderCode null)
+            else if (membersCode == null && renderCode == null && !string.IsNullOrEmpty(component.BodyRaw))
+            {
+                 // Legacy behavior
+                 sb.AppendLine(component.BodyRaw);
             }
 
             // Tree Walk
-            EmitNode(sb, component.RenderTree, null, component);
+            if (_mode == EmitMode.Server)
+            {
+                // In Server Mode, we don't need 'ctx' usually, or we might need it for state?
+                // For this POC, we assume static rendering (no state hooks on server yet, or they return initial).
+                EmitServerNode(sb, component.RenderTree, component);
+            }
+            else
+            {
+                EmitNode(sb, component.RenderTree, null, component);
+            }
 
             sb.AppendLine("    }");
 
             // Emit Hoisted Handlers & Closure Classes
+            // Ideally, we only need these on the CLIENT. 
+            // On the SERVER, we don't execute handlers.
+            // BUT, for the server to compile the same file, it needs to be valid code.
+            // The handlers refer to variables (closures).
+            // We should ideally #if !SERVER them, but for now we emit them so it compiles.
+            // (The code inside might reference client-only APIs? We'll see).
+            
             foreach (var handler in _hoistedHandlers)
             {
-                // Closure Class
                 if (handler.Captures.Count > 0)
                 {
                     sb.AppendLine();
                     sb.AppendLine($"    public class {handler.ClosureName}");
                     sb.AppendLine("    {");
-                    foreach (var cap in handler.Captures)
-                    {
-                        // We assume 'dynamic' or 'object' for now since we don't have type info without semantic model
-                        // Or we can try to infer.. no, let's use 'dynamic' for max compatibility in this POC?
-                        // Actually, 'var' works in method, 'dynamic' field works.
-                        // Or generic Signal, but we don't know the T.
-                        // Let's use 'dynamic' for the fields to be safe.
-                        sb.AppendLine($"        public dynamic {cap};");
-                    }
+                    foreach (var cap in handler.Captures) sb.AppendLine($"        public dynamic? {cap};");
                     sb.AppendLine("    }");
                 }
 
                 sb.AppendLine();
-                sb.AppendLine($"    public static void {handler.Id}(object state)");
+                sb.AppendLine($"    public static void {handler.Id}(object? state)");
                 sb.AppendLine("    {");
-                if (handler.Captures.Count > 0)
-                {
-                    sb.AppendLine($"        var env = ({handler.ClosureName})state;");
-                }
-                sb.AppendLine($"        {handler.Body}");
+                // On Server, handler body might fail if it uses Browser APIs. 
+                // We should wrap in 'if (false)' or similar? 
+                // Or just assume users check for IsClient.
+                // For now, emit as is.
+                if (handler.Captures.Count > 0) sb.AppendLine($"        var env = ({handler.ClosureName})state!;");
+                sb.AppendLine($"        {handler.Body};");
                 sb.AppendLine("    }");
             }
 
@@ -66,8 +139,83 @@ namespace CSX.Generator
             return sb.ToString();
         }
 
+        private void EmitServerNode(StringBuilder sb, Node? node, ComponentNode component)
+        {
+            if (node is ElementNode el)
+            {
+                if (el.TagName != null && el.TagName.Equals("Slot", StringComparison.OrdinalIgnoreCase))
+                {
+                    sb.AppendLine("        childContent?.Invoke(sb);");
+                    return;
+                }
+                
+                sb.AppendLine($"        sb.Append(\"<{el.TagName}\");");
+                
+                foreach (var attr in el.Attributes)
+                {
+                    if (attr.Name != null && attr.Name.StartsWith("on"))
+                    {
+                        // Generate deterministic ID matching Client
+                        var handlerId = $"{component.Name}_Handler_{_handlerCounter++}";
+                        
+                        // We do NOT emit the handler body registration on server (no Reactivity/Registry needed).
+                        // We DO need to emit the attribute.
+                         sb.AppendLine($"        sb.Append(\" {attr.Name}-csx=\\\"{handlerId}\\\"\");");
+                         
+                         // We still process analysis so we don't crash, but we don't need result?
+                         // Actually we don't need to do anything else.
+                    }
+                    else
+                    {
+                         if (attr.Value != null && attr.Value.StartsWith("{"))
+                         {
+                             var code = attr.Value.Substring(1, attr.Value.Length - 2);
+                             sb.AppendLine($"        sb.Append(\" {attr.Name}=\\\"\");");
+                             sb.AppendLine($"        sb.Append({code});");
+                             sb.AppendLine($"        sb.Append(\"\\\"\");");
+                         }
+                         else
+                         {
+                             sb.AppendLine($"        sb.Append(\" {attr.Name}=\\\"{attr.Value}\\\"\");");
+                         }
+                    }
+                }
+
+                sb.AppendLine("        sb.Append(\">\");");
+
+                foreach (var child in el.Children)
+                {
+                    if (child is TextNode text)
+                    {
+                         // Handle interpolation
+                         var parts = System.Text.RegularExpressions.Regex.Split(text.Text, @"(\{.*?\})");
+                         foreach (var part in parts)
+                         {
+                             if (string.IsNullOrEmpty(part)) continue;
+                             if (part.StartsWith("{") && part.EndsWith("}"))
+                             {
+                                  var code = part.Substring(1, part.Length - 2);
+                                  sb.AppendLine($"        sb.Append({code});");
+                             }
+                             else
+                             {
+                                  sb.AppendLine($"        sb.Append(@\"{part}\");");
+                             }
+                         }
+                    }
+                    else
+                    {
+                        EmitServerNode(sb, child, component);
+                    }
+                }
+                
+                sb.AppendLine($"        sb.Append(\"</{el.TagName}>\");");
+            }
+        }
+
         private string? EmitNode(StringBuilder sb, Node? node, string? parentVar, ComponentNode component)
         {
+            // ... (Existing Client Logic) ...
             if (node is ElementNode el)
             {
                 var elVar = "el_" + System.Guid.NewGuid().ToString("N").Substring(0, 8);
@@ -78,37 +226,45 @@ namespace CSX.Generator
                 {
                     if (attr.Name != null && attr.Name.StartsWith("on"))
                     {
-                        // Hoisting Logic!
-                        // 1. Generate ID
-                        var handlerId = $"{component.Name}_Handler_{System.Guid.NewGuid().ToString("N").Substring(0, 6)}";
-                        var closureClassName = $"{component.Name}_Closure_{handlerId}";
+                        // Hoisting Logic
+                        var handlerId = $"{component.Name}_Handler_{_handlerCounter++}";
                         
-                        // 2. Extract & Analyze
-                        var code = attr.Value;
-                        if (code != null && code.StartsWith("{") && code.EndsWith("}"))
-                            code = code.Substring(1, code.Length - 2);
-                        
-                        // Automatic Closure Extraction
-                        var analysis = ClosureAnalyzer.AnalyzeAndRewrite(code ?? "", component.BodyRaw ?? "");
-                        
-                        // 3. Emit Closure Class (Store metadata to emit later)
-                        _hoistedHandlers.Add((handlerId, analysis.RewrittenCode, closureClassName, analysis.CapturedVariables));
-
-                        // 4. Instantiate Closure State in Render
-                        var closureVar = "env_" + handlerId;
-                        sb.AppendLine($"        var {closureVar} = new {closureClassName}();");
-                        foreach(var capture in analysis.CapturedVariables)
+                        // Client Mode Only for Handler Registration
+                        if (_mode == EmitMode.Client)
                         {
-                            sb.AppendLine($"        {closureVar}.{capture} = {capture};");
-                        }
+                            var closureClassName = $"{component.Name}_Closure_{handlerId}";
+                            
+                            var code = attr.Value;
+                            if (code != null && code.StartsWith("{") && code.EndsWith("}"))
+                                code = code.Substring(1, code.Length - 2);
+                            
+                            // Static Analysis
+                            var analysis = ClosureAnalyzer.AnalyzeAndRewrite(code ?? "", component.BodyRaw ?? "");
+                            
+                            // Add to list (Tuple)
+                            _hoistedHandlers.Add((handlerId, analysis.RewrittenCode, closureClassName, analysis.CapturedVariables));
 
-                        // 5. Emit HTML attribute
-                        sb.AppendLine($"        NativeDom.SetAttribute({elVar}, \"{attr.Name}-csx\", \"{handlerId}\");");
-                        
-                        // 6. Register
-                        // Pass the closure instance as state
-                        sb.AppendLine($"        HandlerRegistry.Register(\"{handlerId}\", (s) => {handlerId}(s));");
-                        // Note: The playground version just calls the static method, passing 's' (which is the closure object)
+                            var closureVar = "env_" + handlerId;
+                            // Fix Nullable: closureVar might be null.
+                            sb.AppendLine($"        object? {closureVar} = null;");
+                            
+                            if (analysis.CapturedVariables.Count > 0)
+                            {
+                                sb.AppendLine($"        var closure_inst_{handlerId} = new {closureClassName}();");
+                                foreach(var capture in analysis.CapturedVariables)
+                                {
+                                    sb.AppendLine($"        closure_inst_{handlerId}.{capture} = {capture};");
+                                }
+                                sb.AppendLine($"        {closureVar} = closure_inst_{handlerId};");
+                            }
+
+                            sb.AppendLine($"        NativeDom.SetAttribute({elVar}, \"{attr.Name}-csx\", \"{handlerId}\");");
+                            sb.AppendLine($"        HandlerRegistry.Register(\"{handlerId}\", () => {handlerId}({closureVar}));");
+                        }
+                        else
+                        {
+                             sb.AppendLine($"        sb.Append(\" {attr.Name}-csx=\\\"{handlerId}\\\"\");");
+                        }
                     }
                     else
                     {

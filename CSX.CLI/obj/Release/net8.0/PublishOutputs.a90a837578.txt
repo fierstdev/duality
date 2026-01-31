@@ -1,0 +1,5 @@
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.dll
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.deps.json
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.runtimeconfig.json
+/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.pdb

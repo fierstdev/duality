@@ -5,18 +5,18 @@ namespace CSX.Runtime
 {
     public static class HandlerRegistry
     {
-        private static readonly Dictionary<string, Action<object>> _handlers = new Dictionary<string, Action<object>>();
+        private static readonly Dictionary<string, Action> _handlers = new Dictionary<string, Action>();
 
-        public static void Register(string id, Action<object> handler)
+        public static void Register(string id, Action handler)
         {
             _handlers[id] = handler;
         }
 
-        public static void Dispatch(string id, object state)
+        public static void Dispatch(string id)
         {
             if (_handlers.TryGetValue(id, out var handler))
             {
-                handler(state);
+                handler();
             }
             else
             {

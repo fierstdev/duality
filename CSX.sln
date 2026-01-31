@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSX.Wasm", "CSX.Wasm\CSX.Wa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSX.CLI", "CSX.CLI\CSX.CLI.csproj", "{7E76BEBF-D755-45D2-BECC-6689556A61DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSX.Web", "CSX.Web\CSX.Web.csproj", "{F1FFBF52-AE69-4592-80EF-A6ED9F320C30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{7E76BEBF-D755-45D2-BECC-6689556A61DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E76BEBF-D755-45D2-BECC-6689556A61DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E76BEBF-D755-45D2-BECC-6689556A61DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1FFBF52-AE69-4592-80EF-A6ED9F320C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1FFBF52-AE69-4592-80EF-A6ED9F320C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1FFBF52-AE69-4592-80EF-A6ED9F320C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1FFBF52-AE69-4592-80EF-A6ED9F320C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

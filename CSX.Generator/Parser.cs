@@ -87,34 +87,30 @@ namespace CSX.Generator
 
         private ElementNode ParseElement()
         {
-            var tagToken = Current; // <div
+            var tagToken = Current;
              _pos++; // consume <div
             
-            var node = new ElementNode { TagName = tagToken.Value.Substring(1) }; // div
+            var node = new ElementNode { TagName = tagToken.Value.Substring(1) };
 
-            // Attributes
-             while (Current.Type != TokenType.GreaterThan && Current.Type != TokenType.TagSelfClose)
+             // Attributes
+             while (Current.Type != TokenType.GreaterThan && Current.Type != TokenType.TagSelfClose && Current.Type != TokenType.EndOfFile)
              {
                  if (Current.Type == TokenType.Text && !string.IsNullOrWhiteSpace(Current.Value))
                  {
-                     // Simplified attribute parser
-                     // Expect: name="value" or name={val}
-                     // Since our lexer is weak, we'll parse the raw string roughly for this POC
-                     var raw = Current.Value.Trim();
-                     if (string.IsNullOrEmpty(raw)) { _pos++; continue; }
+                    var text = Current.Value;
+                    var regex = new System.Text.RegularExpressions.Regex(@"([a-zA-Z0-9@:_-]+)=(?:""([^""]*)""|\{([^}]*)\})");
+                    foreach (System.Text.RegularExpressions.Match match in regex.Matches(text))
+                    {
+                        var name = match.Groups[1].Value;
+                        var valQuoted = match.Groups[2].Value;
+                        var valExpr = match.Groups[3].Value;
+                        
+                        var val = !string.IsNullOrEmpty(valExpr) ? "{" + valExpr + "}" : valQuoted;
+                        if (match.Groups[2].Success) val = valQuoted;
+                        else if (match.Groups[3].Success) val = "{" + valExpr + "}";
 
-                     var parts = raw.Split(new[] { '=' }, 2);
-                     if (parts.Length == 2)
-                     {
-                         var name = parts[0].Trim();
-                         var val = parts[1].Trim();
-                         
-                         // Strip quotes if present
-                         if (val.StartsWith("\"") && val.EndsWith("\""))
-                            val = val.Substring(1, val.Length - 2);
-
-                         node.Attributes.Add(new AttributeNode { Name = name, Value = val });
-                     }
+                        node.Attributes.Add(new AttributeNode { Name = name, Value = val });
+                    }
                  }
                  _pos++;
              }
@@ -125,10 +121,12 @@ namespace CSX.Generator
                  return node;
              }
              
+             if (Current.Type == TokenType.EndOfFile) return node;
+
              _pos++; // Consume >
 
              // Children
-             while (Current.Type != TokenType.TagClose)
+             while (Current.Type != TokenType.TagClose && Current.Type != TokenType.EndOfFile)
              {
                  if (Current.Type == TokenType.TagOpenStrict)
                  {

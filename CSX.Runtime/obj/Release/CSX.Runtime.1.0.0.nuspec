@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CSX.Runtime</id>
+    <version>1.0.0</version>
+    <authors>CSX.Runtime</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="49055f4841d2df2c936e08c2fe8f829b689d6b63" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.Runtime/bin/Release/net8.0/CSX.Runtime.dll" target="lib/net8.0/CSX.Runtime.dll" />
+  </files>
+</package>

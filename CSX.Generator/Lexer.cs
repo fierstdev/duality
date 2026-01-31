@@ -117,6 +117,8 @@ namespace CSX.Generator
             
             while (_pos < _input.Length && Current != '<' && Current != '>')
             {
+                // Check if we are seeing start of />
+                if (Current == '/' && Peek() == '>') break;
                 _pos++;
             }
             

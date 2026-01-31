@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CSX.CLI</id>
+    <version>1.0.0</version>
+    <authors>CSX.CLI</authors>
+    <description>Package Description</description>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" commit="49055f4841d2df2c936e08c2fe8f829b689d6b63" />
+  </metadata>
+  <files>
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/obj/DotnetToolSettings.xml" target="tools/net8.0/any/DotnetToolSettings.xml" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.dll" target="tools/net8.0/any/CSX.CLI.dll" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.deps.json" target="tools/net8.0/any/CSX.CLI.deps.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.runtimeconfig.json" target="tools/net8.0/any/CSX.CLI.runtimeconfig.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/CSX.CLI/bin/Release/net8.0/publish/CSX.CLI.pdb" target="tools/net8.0/any/CSX.CLI.pdb" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/.template.config/template.json" target="tools/net8.0/any/templates/default/.template.config/template.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Features/README.md" target="tools/net8.0/any/templates/default/Features/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/Index.csx" target="tools/net8.0/any/templates/default/Pages/Index.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/README.md" target="tools/net8.0/any/templates/default/Pages/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Pages/_layout.csx" target="tools/net8.0/any/templates/default/Pages/_layout.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Program.cs" target="tools/net8.0/any/templates/default/Program.cs" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Shared/UI/README.md" target="tools/net8.0/any/templates/default/Shared/UI/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/template.csproj" target="tools/net8.0/any/templates/default/template.csproj" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/Widgets/README.md" target="tools/net8.0/any/templates/default/Widgets/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/default/wwwroot/css/site.css" target="tools/net8.0/any/templates/default/wwwroot/css/site.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/.template.config/template.json" target="tools/net8.0/any/templates/minimal/.template.config/template.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Pages/Index.csx" target="tools/net8.0/any/templates/minimal/Pages/Index.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Pages/_layout.csx" target="tools/net8.0/any/templates/minimal/Pages/_layout.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/Program.cs" target="tools/net8.0/any/templates/minimal/Program.cs" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/template.csproj" target="tools/net8.0/any/templates/minimal/template.csproj" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/minimal/wwwroot/css/site.css" target="tools/net8.0/any/templates/minimal/wwwroot/css/site.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/.template.config/template.json" target="tools/net8.0/any/templates/example/.template.config/template.json" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/README.md" target="tools/net8.0/any/templates/example/Features/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/Todo/TodoList.css" target="tools/net8.0/any/templates/example/Features/Todo/TodoList.css" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Features/Todo/TodoList.csx" target="tools/net8.0/any/templates/example/Features/Todo/TodoList.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/Index.csx" target="tools/net8.0/any/templates/example/Pages/Index.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/README.md" target="tools/net8.0/any/templates/example/Pages/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Pages/_layout.csx" target="tools/net8.0/any/templates/example/Pages/_layout.csx" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Program.cs" target="tools/net8.0/any/templates/example/Program.cs" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Shared/UI/README.md" target="tools/net8.0/any/templates/example/Shared/UI/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/template.csproj" target="tools/net8.0/any/templates/example/template.csproj" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/Widgets/README.md" target="tools/net8.0/any/templates/example/Widgets/README.md" />
+    <file src="/Users/austinfierst/Fierst-LLC/code/projects/csx-framework/templates/example/wwwroot/css/site.css" target="tools/net8.0/any/templates/example/wwwroot/css/site.css" />
+  </files>
+</package>

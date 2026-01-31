@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSX.Playground")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49055f4841d2df2c936e08c2fe8f829b689d6b63")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSX.Playground")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSX.Playground")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
