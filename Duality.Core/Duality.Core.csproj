@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Version>1.1.3</Version>
     <PackageId>Duality.Core</PackageId>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild>true</GeneratePackageOnBuild> -->
     <Authors>FierstDev</Authors>
     <Company>FierstDev</Company>
     <Description>The runtime library for the Duality Framework, providing signals and reactivity primitives.</Description>

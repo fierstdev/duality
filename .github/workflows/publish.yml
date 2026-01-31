@@ -3,40 +3,32 @@ name: Publish to NuGet
 on:
   push:
     tags:
-      - 'v*' # Trigger on version tags, e.g. v1.0.0
+      - "v*" # Trigger on version tags, e.g. v1.0.0
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.x
+      - uses: actions/checkout@v3
 
-    - name: Extract Version
-      id: get_version
-      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restore Dependencies
-      run: dotnet restore Duality.sln
+      - name: Extract Version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-    - name: Build Solution
-      # This will show you the REAL error if there is a compilation issue
-      run: dotnet build Duality.sln -c Release --no-restore
+      - name: Build & Pack Core
+        run: dotnet pack Duality.Core/Duality.Core.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
 
-    - name: Pack Core
-      # Add --no-build since we just built it above
-      run: dotnet pack Duality.Core/Duality.Core.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
+      - name: Build & Pack Compiler
+        run: dotnet pack Duality.Compiler/Duality.Compiler.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
 
-    - name: Pack Compiler
-      run: dotnet pack Duality.Compiler/Duality.Compiler.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
+      - name: Build & Pack CLI
+        run: dotnet pack Duality.CLI/Duality.CLI.csproj -c Release /p:PackageVersion=${{ env.VERSION }} -o nupkg
 
-    - name: Pack CLI
-      run: dotnet pack Duality.CLI/Duality.CLI.csproj -c Release --no-build /p:PackageVersion=${{ env.VERSION }} -o nupkg
-
-    - name: Push to NuGet
-      run: dotnet nuget push nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Push to NuGet
+        run: dotnet nuget push nupkg/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
