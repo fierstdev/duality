@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Duality.Core\Duality.Core.csproj" />
-    <ProjectReference Include="..\CSX.Generator\CSX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Duality.Compiler\DualityCompiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

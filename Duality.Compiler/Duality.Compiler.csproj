@@ -13,7 +13,7 @@
     <Authors>FierstDev</Authors>
     <Company>FierstDev</Company>
     <Description>Roslyn Source Generator for Duality, transforming .csx components into C# classes.</Description>
-    <RepositoryUrl>https://github.com/fierst-llc/csx-framework</RepositoryUrl>
+    <RepositoryUrl>https://github.com/fierstdev/duality</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

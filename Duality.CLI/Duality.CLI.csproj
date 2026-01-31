@@ -12,7 +12,7 @@
     <Authors>FierstDev</Authors>
     <Company>FierstDev</Company>
     <Description>Command-line interface for creating and managing Duality projects.</Description>
-    <RepositoryUrl>https://github.com/fierst-llc/csx-framework</RepositoryUrl>
+    <RepositoryUrl>https://github.com/fierstdev/duality</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

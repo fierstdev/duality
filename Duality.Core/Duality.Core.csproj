@@ -10,7 +10,7 @@
     <Authors>FierstDev</Authors>
     <Company>FierstDev</Company>
     <Description>The runtime library for the Duality Framework, providing signals and reactivity primitives.</Description>
-    <RepositoryUrl>https://github.com/fierst-llc/csx-framework</RepositoryUrl>
+    <RepositoryUrl>https://github.com/fierstdev/duality</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
