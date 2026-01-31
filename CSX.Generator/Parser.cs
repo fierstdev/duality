@@ -8,6 +8,7 @@ namespace CSX.Generator
     public class ComponentNode : Node
     {
         public string? Name { get; set; }
+        public string? HeaderCode { get; set; }
         public string? BodyRaw { get; set; }
         public Node? RenderTree { get; set; }
     }
@@ -51,6 +52,15 @@ namespace CSX.Generator
 
         public ComponentNode? ParseComponent()
         {
+            string header = "";
+            
+            // Allow Header Code (Text) before Component
+            if (Current.Type == TokenType.Text)
+            {
+                header = Current.Value;
+                _pos++;
+            }
+            
             // Expected: ComponentStart ("component Name ")
             if (Current.Type != TokenType.ComponentStart) return null;
             
@@ -80,6 +90,7 @@ namespace CSX.Generator
             return new ComponentNode
             {
                 Name = name,
+                HeaderCode = header,
                 BodyRaw = bodyRaw,
                 RenderTree = ParseElement()
             };

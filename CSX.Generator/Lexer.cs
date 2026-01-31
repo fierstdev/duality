@@ -119,6 +119,8 @@ namespace CSX.Generator
             {
                 // Check if we are seeing start of />
                 if (Current == '/' && Peek() == '>') break;
+                // Check if we are seeing start of component keyword
+                if (IsMatch("component ")) break;
                 _pos++;
             }
             

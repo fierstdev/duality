@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSX.CLI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8ef4e758d9d48402da2255efa55523ea0c12237")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c9082b3e5ac0862ba9ce0ed29f7ebd516f7249f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSX.CLI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSX.CLI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

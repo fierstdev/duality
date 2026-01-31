@@ -22,6 +22,14 @@ namespace CSX.Generator
             sb.AppendLine("using CSX.Runtime;");
             sb.AppendLine("using static CSX.Runtime.Hooks;");
             if (_mode == EmitMode.Server) sb.AppendLine("using System.Text;");
+            
+            if (!string.IsNullOrEmpty(component.HeaderCode))
+            {
+                sb.AppendLine();
+                sb.AppendLine("// Header Code");
+                sb.AppendLine(component.HeaderCode);
+            }
+            
             sb.AppendLine();
             sb.AppendLine($"// Generated CSX Component: {component.Name}");
             sb.AppendLine($"public static partial class {component.Name}_Impl");
