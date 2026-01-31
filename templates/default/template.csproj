@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duality.Core" Version="1.1.5-alpha" />
-    <PackageReference Include="Duality.Compiler" Version="1.1.5-alpha" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Duality.Core" Version="1.1.6-alpha" />
+    <PackageReference Include="Duality.Compiler" Version="1.1.6-alpha" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,5 +20,7 @@
   <ItemGroup>
       <AdditionalFiles Include="**/*.csx" />
       <AdditionalFiles Include="**/*.css" />
+      <Watch Include="**/*.csx" />
+      <Watch Include="**/*.css" />
   </ItemGroup>
 </Project>
