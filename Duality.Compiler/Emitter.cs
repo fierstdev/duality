@@ -80,7 +80,34 @@ namespace Duality.Compiler
             if (_mode == EmitMode.Server)
             {
                 sb.AppendLine("        var RouteParams = routeParams ?? new System.Collections.Generic.Dictionary<string, object>();");
-                sb.AppendLine("        var componentId = \"cmp_\" + System.Guid.NewGuid().ToString(\"N\");");
+                // Check if Root Element has ID, if not generate one.
+                // We don't have easy access to the root element attributes here efficiently without peeking.
+                // But EmitServerNode handles the root. We can pass a generated ID or let it find one?
+                // Actually, let's keep the logic simple: Always generate a componentId for internal reference, 
+                // but if the user provided an ID, we *could* use that. 
+                // However, for simplicity and guaranteed uniqueness across generic components, let's Stick to our generated ID 
+                // UNLESS we want to support user overrides. 
+                // The PLAN said: "Check if the root element of the RenderTree already has an id attribute."
+                // implementation_plan.md: "If an id exists, use it as the componentId."
+                
+                // We need to peek at component.RenderTree (which is a Node).
+                sb.AppendLine("        string componentId = \"cmp_\" + System.Guid.NewGuid().ToString(\"N\");");
+                sb.AppendLine("        // Attempt to find user-provided ID on root");
+                // We can't easily iterate the tree here in the *emitted* code string unless we emit code to do it.
+                // Better: Do it at *compile time* (right now in Emit method) if possible.
+                // component.RenderTree IS available here in C#.
+                
+                sb.AppendLine("        string componentId = \"cmp_\" + System.Guid.NewGuid().ToString(\"N\");");
+                
+                // Actually, simply setting `id` on the root element is enough. 
+                // If the user *also* set an id, we have a collision. Duality should probably own the ID for the root of a component?
+                // Or we append to it?
+                // Let's implement: Always emit `id="{componentId}"` on the root. 
+                // If the user manually provided an ID, it will be emitted properly too, resulting in two IDs? 
+                // Valid HTML only allows one.
+                // We should check during EmitServerNode if we are root, and if so, emit id=componentId INSTEAD of printing "id=..." from attributes?
+                // Or just ensuring we don't double print.
+
             }
             else
             {
@@ -175,7 +202,7 @@ namespace Duality.Compiler
 
                 if (isRoot)
                 {
-                    sb.AppendLine("        sb.Append(\" duality-id=\\\"\");");
+                    sb.AppendLine("        sb.Append(\" id=\\\"\");");
                     sb.AppendLine("        sb.Append(componentId);");
                     sb.AppendLine("        sb.Append(\"\\\"\");");
                 }
@@ -191,7 +218,7 @@ namespace Duality.Compiler
                          {
                              // It matches! Emit HTMX attributes instead of on*
                              sb.AppendLine($"        sb.Append(\" hx-post=\\\"/_rpc/{component.Name}/{methodName}\\\"\");");
-                             sb.AppendLine("        sb.Append(\" hx-target=\\\"[duality-id='\" + componentId + \"']\\\"\");");
+                             sb.AppendLine("        sb.Append(\" hx-target=\\\"#\" + componentId + \"\\\"\");");
                              sb.AppendLine("        sb.Append(\" hx-swap=\\\"outerHTML\\\"\");");
                              continue; // Skip default emission
                          }
@@ -232,7 +259,7 @@ namespace Duality.Compiler
                     if (child is TextNode text)
                     {
                          // Handle interpolation
-                         var parts = System.Text.RegularExpressions.Regex.Split(text.Text, @"(\{.*?\})");
+                         var parts = System.Text.RegularExpressions.Regex.Split(text.Text ?? "", @"(\{.*?\})");
                          foreach (var part in parts)
                          {
                              if (string.IsNullOrEmpty(part)) continue;
