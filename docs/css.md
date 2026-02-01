@@ -1,6 +1,6 @@
-# CSS Modules in CSX
+# CSS Modules in Duality
 
-CSX supports **CSS Modules** out of the box, providing scoped styles and type-safe class names.
+Duality supports **CSS Modules** out of the box, providing scoped styles and type-safe class names.
 
 ## Usage
 
@@ -30,7 +30,7 @@ component Hero {
     // .title-text -> Css.TitleText
 
     return <div class={Css.Container}>
-        <h1 class={Css.TitleText}>Welcome to CSX</h1>
+        <h1 class={Css.TitleText}>Welcome to Duality</h1>
     </div>;
 }
 ```

@@ -1,6 +1,6 @@
-# Deploying CSX Applications
+# Deploying Duality Applications
 
-Since CSX projects are standard ASP.NET Core applications, they can be hosted anywhere .NET 8 is supported.
+Since Duality projects are standard ASP.NET Core applications, they can be hosted anywhere .NET 8 is supported.
 
 ## 1. Create a Release Build
 Run the `publish` command to generate optimized production assets.
@@ -31,8 +31,8 @@ ENTRYPOINT ["dotnet", "YourProjectName.dll"]
 
 Build and run:
 ```bash
-docker build -t csx-app .
-docker run -p 8080:8080 csx-app
+docker build -t duality-app .
+docker run -p 8080:8080 duality-app
 ```
 
 ### Azure App Service
@@ -43,15 +43,15 @@ docker run -p 8080:8080 csx-app
    ```
 
 ### Linux VPS (Nginx)
-1. Copy the contents of the `publish` folder to your server (e.g., `/var/www/csx-app`).
+1. Copy the contents of the `publish` folder to your server (e.g., `/var/www/duality-app`).
 2. Run the app as a service using systemd.
    ```ini
    [Unit]
-   Description=CSX App
+   Description=Duality App
 
    [Service]
-   WorkingDirectory=/var/www/csx-app
-   ExecStart=/usr/bin/dotnet /var/www/csx-app/YourProjectName.dll
+   WorkingDirectory=/var/www/duality-app
+   ExecStart=/usr/bin/dotnet /var/www/duality-app/YourProjectName.dll
    Restart=always
    User=www-data
    Environment=ASPNETCORE_ENVIRONMENT=Production
@@ -61,7 +61,7 @@ docker run -p 8080:8080 csx-app
    ```
 
 ### Static Hosting?
-CSX currently relies on server-side rendering (SSR), so it requires a .NET server. It cannot be deployed to static hosts like Vercel (unless using their Serverless Function support for .NET) or Netlify Drop.
+Duality currently relies on server-side rendering (SSR), so it requires a .NET server. It cannot be deployed to static hosts like Vercel (unless using their Serverless Function support for .NET) or Netlify Drop.
 
 ## 3. Managing NuGet Versions
 

@@ -1,6 +1,6 @@
 # Wasm & NativeAOT optimization
 
-The `CSX.Wasm` project is configured for **NativeAOT** targeting `browser-wasm` with the experimental `wasm-gc` instruction set.
+The `Duality.Wasm` project is configured for **NativeAOT** targeting `browser-wasm` with the experimental `wasm-gc` instruction set.
 
 ## Project Configuration (`.csproj`)
 

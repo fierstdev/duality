@@ -1,6 +1,6 @@
-# CSX Runtime & Reactivity
+# Duality Runtime & Reactivity
 
-The CSX Runtime (`CSX.Runtime`) provides the primitives for fine-grained reactivity and DOM manipulation.
+The Duality Runtime (`Duality.Core`) provides the primitives for fine-grained reactivity and DOM manipulation.
 
 ## 1. The Signal Primitive
 `Signal<T>` is the core unit of state.
@@ -8,14 +8,14 @@ The CSX Runtime (`CSX.Runtime`) provides the primitives for fine-grained reactiv
 - **Set**: Setting the value notifies all subscribers.
 - **Subscribe**: `Subscribe(Action<T>)` registers a callback invoked immediately and on updates.
 
-## 2. Hooks API
-We mimic React's API but backing it with Signals.
-- `UseState<T>(initial)`: Returns `(Signal<T> signal, Action<T> setter)`.
-  - Unlike React, `setter` updates the signal, it does NOT re-run the component function.
-- `UseMemo<T>`: Derived signals.
+## 2. Server Actions
+Instead of client-side hooks, Duality primarily uses Server Actions for interactivity and state management.
+- **`[Server]` Attribute**: Marks static methods that run on the server.
+- **RPC Integration**: Automatically creates API endpoints and binds UI events using HTMX.
+- **See**: [Server Actions (RPC)](rpc.md) for detailed usage.
 
 ## 3. Compiler-Driven Subscriptions
-The Generator detects `{expression}` blocks in the CSX.
+The Compiler detects `{expression}` blocks in the CSX.
 - **Text Content**: If `{signal}` is found, it emits `Reactivity.Bind(signal, val => NativeDom.SetText(el, val))`.
 - **Logic**: `Reactivity.Bind` detects if the object implements `ISignal`. If so, it subscribes. If not (static value), it runs once.
 

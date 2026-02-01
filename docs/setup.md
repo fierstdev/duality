@@ -11,9 +11,9 @@ dotnet build
 ```
 
 This will:
-1. Build the generator (`CSX.Generator`).
-2. Build the runtime (`CSX.Runtime`).
-3. specific: The `CSX.Playground` project will run the `CSX.Generator` during its build process.
+1. Build the generator (`Duality.Compiler`).
+2. Build the runtime (`Duality.Core`).
+3. specific: The `Duality.Playground` project will run the `Duality.Compiler` during its build process.
 
 ## Build Configuration
 We use a `Directory.Build.props` file in the root to ensure consistent settings across all projects:
@@ -21,12 +21,12 @@ We use a `Directory.Build.props` file in the root to ensure consistent settings 
 - **Nullable**: enabled
 - **TreatWarningsAsErrors**: true
 
-## Adding CSX to a New Project
-To use CSX in a new project (like `CSX.Playground`), you must add references to both the Runtime and the Generator. The Generator must be referenced as an **Analyzer**.
+## Adding Duality to a New Project
+To use Duality in a new project (like `Duality.Playground`), you must add references to both the Runtime and the Generator. The Generator must be referenced as an **Analyzer**.
 
 ```xml
 <ItemGroup>
-  <ProjectReference Include="..\CSX.Runtime\CSX.Runtime.csproj" />
-  <ProjectReference Include="..\CSX.Generator\CSX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  <ProjectReference Include="..\Duality.Core\Duality.Core.csproj" />
+  <ProjectReference Include="..\Duality.Compiler\Duality.Compiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 </ItemGroup>
 ```

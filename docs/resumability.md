@@ -1,10 +1,10 @@
 # Resumability & Static Extraction
 
-CSX achieves instant startup by not running component logic on the client until interaction occurs.
+Duality achieves instant startup by not running component logic on the client until interaction occurs.
 
 ## Architecture
 
-1.  **Static Extraction**: The compiler (Generator) identifies event handlers (like `onclick`) and "hoists" them into `static` methods.
+1.  **Static Extraction**: The compiler (Duality.Compiler) identifies event handlers (like `onclick`) and "hoists" them into `static` methods.
 2.  **HTML Generation**: The initial HTML contains `onclick-csx="HandlerID"`. Standard `onclick` is blocked.
 3.  **Automatic Closure Capturing**:
     - The compiler analyzes the handler code.

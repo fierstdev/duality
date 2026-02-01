@@ -1,6 +1,6 @@
 # Compiler Internals
 
-The `CSX.Generator` functions as a Roslyn `IIncrementalGenerator`. It transforms `.csx` source text into C# source code through a three-stage pipeline.
+The `Duality.Compiler` functions as a Roslyn `IIncrementalGenerator`. It transforms `.csx` source text into C# source code through a three-stage pipeline.
 
 ## 1. Lexer (`Lexer.cs`)
 The Lexer converts the raw input string into a stream of tokens. It operates in two simplified modes (conceptual):
@@ -23,7 +23,7 @@ The Parser consumes tokens and builds an Abstract Syntax Tree (AST).
 
 ## 3. Emitter (`Emitter.cs`)
 The Emitter walks the AST and generates valid C# code.
-- **Output Strategy**: usage of `CSX.Runtime.NativeDom`.
+- **Output Strategy**: usage of `Duality.Core.NativeDom`.
 - **Logic**:
   - Creates variable names for elements (`var el_123...`).
   - Calls `NativeDom.CreateElement`.

@@ -1,6 +1,6 @@
-# CSX VS Code Extension
+# Duality VS Code Extension
 
-This directory contains the source code for the official CSX VS Code Extension (`csx-support`).
+This directory contains the source code for the official Duality VS Code Extension (`duality-support`).
 
 ## Features
 

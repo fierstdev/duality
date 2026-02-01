@@ -1,6 +1,6 @@
-# CSX Server Actions (RPC)
+# Duality Server Actions (RPC)
 
-CSX provides a seamless way to trigger server-side logic from the client without writing API endpoints manually. This is powered by **HTMX** and compiler transpilation.
+Duality provides a seamless way to trigger server-side logic from the client without writing API endpoints manually. This is powered by **HTMX** and compiler transpilation.
 
 ## Concept
 

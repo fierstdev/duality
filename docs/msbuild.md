@@ -5,7 +5,7 @@ To make the Roslyn Source Generator "see" our custom `.csx` files, we utilize sp
 ## 1. AdditionalFiles
 Roslyn Source Generators do not automatically see non-C# files. We must explicitly register `.csx` files as `AdditionalFiles`.
 
-In `CSX.Playground.csproj`:
+In `Duality.Playground.csproj`:
 ```xml
 <ItemGroup>
   <None Remove="**/*.csx" />
@@ -19,15 +19,15 @@ In `CSX.Playground.csproj`:
 The generator is referenced differently than a standard library.
 
 ```xml
-<ProjectReference Include="..\CSX.Generator\CSX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+<ProjectReference Include="..\Duality.Compiler\Duality.Compiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 ```
 - `OutputItemType="Analyzer"`: Tells MSBuild to load the DLL into the Roslyn compiler process.
 - `ReferenceOutputAssembly="false"`: Prevents the DLL from being added as a runtime reference (we don't need the generator types at runtime, only its output).
 
 ## 3. Generator Project Settings
-The `CSX.Generator` project requires specific settings to function as a Roslyn component.
+The `Duality.Compiler` project requires specific settings to function as a Roslyn component.
 
-In `CSX.Generator.csproj`:
+In `Duality.Compiler.csproj`:
 ```xml
 <PropertyGroup>
   <TargetFramework>netstandard2.0</TargetFramework>

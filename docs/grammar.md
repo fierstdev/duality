@@ -1,7 +1,7 @@
-# CSX Grammar Specification
+# Duality Grammar Specification
 
 ## Overview
-CSX (C# Syntax Extension) files allow embedding XML-like syntax directly into C# code. The compiler transforms these `.csx` files into standard C# source code.
+Duality uses `.csx` (C# Syntax Extension) files which allow embedding XML-like syntax directly into C# code. The compiler transforms these `.csx` files into standard C# source code.
 
 ## File Structure
 A `.csx` file is treated as a collection of component definitions.
@@ -37,8 +37,8 @@ Curly braces `{ ... }` switch context back to raw C#.
 - **Inside Attributes**: `<button onclick={handleClick} />`
 
 ### 4. Directives (Planned)
-- `UseState<T>(value)`: Returns `(Signal<T>, Action<T>)`.
-- `UseMemo<T>(func)`: Returns `Signal<T>`.
+- `[Server]`: Mark methods as server-callable RPCs.
+- *More directives coming soon.*
 
 ## Restrictions
 - Tags must be balanced.

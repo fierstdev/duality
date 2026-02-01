@@ -1,11 +1,11 @@
-# CSX File-System Routing
+# Duality File-System Routing
 
-CSX implements a file-system based routing engine inspired by Next.js, leveraging the power of C# Source Generators.
+Duality implements a file-system based routing engine inspired by Next.js, leveraging the power of C# Source Generators.
 
 ## Features
 
 ### Static Routes
-Any `.csx` file placed in `CSX.Web/Pages` becomes a route.
+Any `.csx` file placed in `Duality.Web/Pages` becomes a route.
 * `Pages/Index.csx` -> `/`
 * `Pages/About.csx` -> `/about`
 
