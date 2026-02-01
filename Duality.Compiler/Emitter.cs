@@ -91,7 +91,7 @@ namespace Duality.Compiler
                 // implementation_plan.md: "If an id exists, use it as the componentId."
                 
                 // We need to peek at component.RenderTree (which is a Node).
-                sb.AppendLine("        string componentId = \"cmp_\" + System.Guid.NewGuid().ToString(\"N\");");
+                // component.RenderTree IS available here in C#.
                 sb.AppendLine("        // Attempt to find user-provided ID on root");
                 // We can't easily iterate the tree here in the *emitted* code string unless we emit code to do it.
                 // Better: Do it at *compile time* (right now in Emit method) if possible.
