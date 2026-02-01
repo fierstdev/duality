@@ -2,7 +2,7 @@
 set -e
 
 # Version to release
-VERSION="1.1.7-alpha"
+VERSION="1.1.8-alpha"
 
 # Colors
 GREEN='\033[0;32m'
@@ -31,4 +31,4 @@ echo ""
 echo "To publish to NuGet.org, run:"
 echo "dotnet nuget push Duality.Core/bin/Release/Duality.Core.$VERSION.nupkg -k YOUR_API_KEY -s https://api.nuget.org/v3/index.json"
 echo "dotnet nuget push Duality.Compiler/bin/Release/Duality.Compiler.$VERSION.nupkg -k YOUR_API_KEY -s https://api.nuget.org/v3/index.json"
-echo "dotnet nuget push Duality.CLI/nupkg/Duality.CLI.$VERSION.nupkg -k YOUR_API_KEY -s https://api.nuget.org/v3/index.json"
+echo "dotnet nuget push Duality.CLI/bin/Release/Duality.CLI.$VERSION.nupkg -k YOUR_API_KEY -s https://api.nuget.org/v3/index.json"

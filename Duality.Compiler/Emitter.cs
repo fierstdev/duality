@@ -80,6 +80,7 @@ namespace Duality.Compiler
             if (_mode == EmitMode.Server)
             {
                 sb.AppendLine("        var RouteParams = routeParams ?? new System.Collections.Generic.Dictionary<string, object>();");
+                sb.AppendLine("        var componentId = \"cmp_\" + System.Guid.NewGuid().ToString(\"N\");");
             }
             else
             {
@@ -103,9 +104,8 @@ namespace Duality.Compiler
             if (_mode == EmitMode.Server)
             {
                 // In Server Mode, we don't need 'ctx' usually, or we might need it for state?
-                // In Server Mode, we don't need 'ctx' usually, or we might need it for state?
                 // For this POC, we assume static rendering (no state hooks on server yet, or they return initial).
-                EmitServerNode(sb, component.RenderTree, component, serverActions);
+                EmitServerNode(sb, component.RenderTree, component, serverActions, true);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace Duality.Compiler
             return sb.ToString();
         }
 
-        private void EmitServerNode(StringBuilder sb, Node? node, ComponentNode component, List<MethodInfo>? serverActions)
+        private void EmitServerNode(StringBuilder sb, Node? node, ComponentNode component, List<MethodInfo>? serverActions, bool isRoot = false)
         {
             if (node is ElementNode el)
             {
@@ -165,13 +165,20 @@ namespace Duality.Compiler
                     sb.AppendLine($"        {el.TagName}_Impl.Render(sb, null, (sb) => {{");
                     foreach (var child in el.Children)
                     {
-                        EmitServerNode(sb, child, component, serverActions);
+                        EmitServerNode(sb, child, component, serverActions, false);
                     }
                     sb.AppendLine("        });");
                     return;
                 }
                 
                 sb.AppendLine($"        sb.Append(\"<{el.TagName}\");");
+
+                if (isRoot)
+                {
+                    sb.AppendLine("        sb.Append(\" duality-id=\\\"\");");
+                    sb.AppendLine("        sb.Append(componentId);");
+                    sb.AppendLine("        sb.Append(\"\\\"\");");
+                }
                 
                 foreach (var attr in el.Attributes)
                 {
@@ -184,7 +191,7 @@ namespace Duality.Compiler
                          {
                              // It matches! Emit HTMX attributes instead of on*
                              sb.AppendLine($"        sb.Append(\" hx-post=\\\"/_rpc/{component.Name}/{methodName}\\\"\");");
-                             sb.AppendLine("        sb.Append(\" hx-target=\\\"closest div\\\"\");"); // Default targeting
+                             sb.AppendLine("        sb.Append(\" hx-target=\\\"[duality-id='\" + componentId + \"']\\\"\");");
                              sb.AppendLine("        sb.Append(\" hx-swap=\\\"outerHTML\\\"\");");
                              continue; // Skip default emission
                          }
@@ -242,7 +249,7 @@ namespace Duality.Compiler
                     }
                     else
                     {
-                        EmitServerNode(sb, child, component, serverActions);
+                        EmitServerNode(sb, child, component, serverActions, false);
                     }
                 }
                 
